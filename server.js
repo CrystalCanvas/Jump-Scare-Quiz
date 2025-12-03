@@ -60,6 +60,13 @@ function authorizeResults(req, res) {
 
 router.use(express.static(path.join(__dirname, "public")));
 
+// Expose runtime config (base path) to the client without hard-coding it.
+router.get("/config.js", (_, res) => {
+  res.type("application/javascript").send(`window.__APP_CONFIG__ = ${JSON.stringify({
+    basePath: BASE_PATH || "",
+  })};`);
+});
+
 router.get("/api/results", async (req, res) => {
   if (!authorizeResults(req, res)) return;
   try {

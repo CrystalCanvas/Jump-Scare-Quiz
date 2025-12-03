@@ -2,6 +2,23 @@
 
 Short, spooky quiz that grabs a student name/ID, jump-scares you on wrong answers, and records every run.
 
+## Run under a subpath (e.g., `/ENL3Final`)
+
+You can mount this app as an isolated section of a larger site by proxying a subpath to the Node server:
+
+1) Start the app with a base path: `PORT=4000 BASE_PATH=/ENL3Final node server.js`.  
+2) Reverse proxy `/ENL3Final` on your main site to `http://127.0.0.1:4000` (keep the prefix). Example Nginx block:
+   ```nginx
+   location /ENL3Final {
+     proxy_pass http://127.0.0.1:4000;
+     proxy_set_header Host $host;
+     proxy_set_header X-Real-IP $remote_addr;
+     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+     proxy_set_header X-Forwarded-Proto $scheme;
+   }
+   ```
+3) Requests to `https://yoursite.com/ENL3Final` (including `/results`) will reach this quiz, while the rest of your site stays unchanged.
+
 ## Quick start
 ```bash
 npm install

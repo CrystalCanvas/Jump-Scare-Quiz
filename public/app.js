@@ -60,6 +60,8 @@ const state = {
   studentId: "",
 };
 
+const BASE_PATH = (window.__APP_CONFIG__?.basePath || "").replace(/\/+$/, "");
+
 const elements = {
   startScreen: document.getElementById("start-screen"),
   quizScreen: document.getElementById("quiz-screen"),
@@ -223,7 +225,7 @@ function endQuiz() {
 
 async function sendResults(payload) {
   try {
-    await fetch("api/results", {
+    await fetch(`${BASE_PATH}/api/results`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
