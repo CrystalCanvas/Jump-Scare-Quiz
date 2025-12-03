@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paranoia Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="grain"></div>
+  <div class="noise-overlay"></div>
+  <header class="hero">
+    <div class="logo">Paranoia Quiz</div>
+    <div class="subtitle">Every wrong answer brings them closer.</div>
+  </header>
+
+  <main>
+    <section id="start-screen" class="panel glass">
+      <h1>Enter... if you dare</h1>
+      <p class="warn">This quiz contains sudden scares and loud sounds.</p>
+      <form id="start-form" class="start-form">
+        <label>
+          Student Name
+          <input type="text" id="student-name" required>
+        </label>
+        <label>
+          Student ID
+          <input type="text" id="student-id" required>
+        </label>
+        <div class="controls">
+          <button type="submit" class="btn blood">Start the ritual</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="quiz-screen" class="panel hidden glass">
+      <div class="hud">
+        <div>Victim: <span id="hud-name"></span></div>
+        <div>ID: <span id="hud-id"></span></div>
+        <div>Question <span id="progress-current">1</span>/<span id="progress-total">0</span></div>
+        <div>Score: <span id="score">0</span></div>
+      </div>
+      <div class="question-wrap">
+        <div class="question-meta">
+          <div class="timer" id="timer">00</div>
+          <div class="whisper">They are watching...</div>
+        </div>
+        <h2 id="question-text"></h2>
+        <div id="choices" class="choices"></div>
+        <div id="feedback" class="feedback"></div>
+      </div>
+    </section>
+
+    <section id="result-screen" class="panel hidden glass">
+      <h2>Fate revealed</h2>
+      <p id="result-summary"></p>
+      <div id="answer-review" class="review"></div>
+    </section>
+  </main>
+
+  <div id="scare-overlay" class="scare hidden">
+    <img id="scare-image" alt="Scare">
+    <audio id="scare-audio" preload="auto"></audio>
+  </div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
