@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 const BASE_PATH = (process.env.BASE_PATH || "").replace(/\/+$/, "");
 const ALT_BASE_PATH = BASE_PATH ? BASE_PATH.toLowerCase() : "";
 const RESULTS_PATH = path.join(__dirname, "data", "results.json");
-const RESULTS_PASSWORD = "Happy";
+const RESULTS_PASSWORD = (process.env.RESULTS_PASSWORD || "Happy").trim();
 const RESULTS_ENDPOINT = process.env.RESULTS_ENDPOINT || "/api/results";
 const HEALTH_ENDPOINT = process.env.HEALTH_ENDPOINT || "/api/health";
 
@@ -59,8 +59,8 @@ const resultPostRoutes = [RESULTS_ENDPOINT, "/api/results", "/api/store", "/api/
 resultPostRoutes.forEach((route) => router.post(route, postResultHandler));
 
 function authorizeResults(req, res) {
-  const provided = req.query.password || req.headers["x-results-password"];
-  if (provided === RESULTS_PASSWORD) return true;
+  const provided = (req.query.password || req.headers["x-results-password"] || "").trim();
+  if (provided && provided.toLowerCase() === RESULTS_PASSWORD.toLowerCase()) return true;
   res.status(401).send("Unauthorized");
   return false;
 }
